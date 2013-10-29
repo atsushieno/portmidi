@@ -32,9 +32,9 @@
 #endif
 
 /* to store client/port in the device descriptor */
-#define MAKE_DESCRIPTOR(client, port) ((void*)(((client) << 8) | (port)))
-#define GET_DESCRIPTOR_CLIENT(info) ((((int)(info)) >> 8) & 0xff)
-#define GET_DESCRIPTOR_PORT(info) (((int)(info)) & 0xff)
+#define MAKE_DESCRIPTOR(client, port) ((void*)(size_t)(((client) << 8) | (port)))
+#define GET_DESCRIPTOR_CLIENT(info) ((((int)(size_t)(info)) >> 8) & 0xff)
+#define GET_DESCRIPTOR_PORT(info) (((int)(size_t)(info)) & 0xff)
 
 #define BYTE unsigned char
 
@@ -435,7 +435,7 @@ static PmError alsa_write_flush(PmInternal *midi, PmTimestamp timestamp)
 {
     alsa_descriptor_type desc = (alsa_descriptor_type) midi->descriptor;
     if (!desc) return pmBadPtr;
-    VERBOSE printf("snd_seq_drain_output: 0x%x\n", (unsigned int) seq);
+    VERBOSE printf("snd_seq_drain_output: 0x%x\n", (unsigned int) (size_t) seq);
     desc->error = snd_seq_drain_output(seq);
     if (desc->error < 0) return pmHostError;
 
