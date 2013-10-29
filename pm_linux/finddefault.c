@@ -4,10 +4,13 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 #include <string.h>
 #include "portmidi.h"
 
 #define STRING_MAX 256
+
+extern int pm_find_default_device(char *pattern, int is_input);
 
 /* skip over spaces, return first non-space */
 void skip_spaces(FILE *inf)
@@ -27,7 +30,7 @@ int match_string(FILE *inf, char *s)
 
 
 /* 
-/* Parse preference files, find default device, search devices --
+ * Parse preference files, find default device, search devices --
  */
 PmDeviceID find_default_device(char *path, int input, PmDeviceID id)
 /* path -- the name of the preference we are searching for

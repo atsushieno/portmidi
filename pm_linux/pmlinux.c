@@ -25,6 +25,7 @@
 
 PmDeviceID pm_default_input_device_id = -1;
 PmDeviceID pm_default_output_device_id = -1;
+extern PmDeviceID find_default_device(char *path, int input, PmDeviceID id);
 
 void pm_init()
 {
